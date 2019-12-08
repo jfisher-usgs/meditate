@@ -1,0 +1,14 @@
+# See https://help.github.com/articles/dealing-with-line-endings
+
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Committed text files that are stored with LF and converted to native line endings on checkout.
+*.csv text
+*.md text
+*.R text
+*.Rd text
+
+# Text files that should always have LF line endings on checkout.
+*.rda binary
+*.wav binary
