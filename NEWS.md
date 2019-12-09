@@ -1,3 +1,3 @@
-# meditate 0.1.1
+# meditate 0.1.2
 
 - First version of **meditate**

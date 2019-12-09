@@ -32,7 +32,7 @@
 #' @export
 #'
 #' @examples
-#' Meditate(0.5, sound = FALSE)
+#' Meditate(0.1, sound = FALSE, preparation = NULL, file = NULL)
 #'
 
 Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
@@ -44,7 +44,8 @@ Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
   checkmate::assertFlag(repeats)
   checkmate::assertFlag(sound)
   checkmate::assertNumber(preparation, lower=0, finite=TRUE, null.ok=TRUE)
-  checkmate::assertPathForOutput(file, overwrite=TRUE, extension="csv")
+  if (!is.null(file))
+    checkmate::assertPathForOutput(file, overwrite=TRUE, extension="csv")
 
   if (!is.null(preparation) && preparation > 0) {
     cat("Prepare\n")
