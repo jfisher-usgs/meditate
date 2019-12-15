@@ -10,7 +10,9 @@ Meditate(
   repeats = TRUE,
   sound = TRUE,
   preparation = 10,
-  file = "meditate.csv"
+  file = "meditate.csv",
+  mandala = TRUE,
+  ...
 )
 }
 \arguments{
@@ -35,6 +37,11 @@ File to write session information---new data records
 will be appended to this comma-separated values (CSV) file.
 A data record consists of a session's start time in
 Coordinated Universal Time (UTC) and duration in minutes.}
+
+\item{mandala}{'logical' flag.
+Whether to plot a mandala for the duration of the session.}
+
+\item{...}{Arguments passed to the \code{\link{PlotMandala}} function.}
 }
 \value{
 Invisible \code{NULL}

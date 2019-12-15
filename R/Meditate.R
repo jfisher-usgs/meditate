@@ -18,6 +18,10 @@
 #'   will be appended to this comma-separated values (CSV) file.
 #'   A data record consists of a session's start time in
 #'   Coordinated Universal Time (UTC) and duration in minutes.
+#' @param mandala 'logical' flag.
+#'   Whether to plot a mandala for the duration of the session.
+#' @param ...
+#'   Arguments passed to the \code{\link{PlotMandala}} function.
 #'
 #' @return Invisible \code{NULL}
 #'
@@ -36,7 +40,8 @@
 #'
 
 Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
-                     sound=TRUE, preparation=10, file="meditate.csv") {
+                     sound=TRUE, preparation=10, file="meditate.csv",
+                     mandala=TRUE, ...) {
 
   # check arguments
   checkmate::assertNumber(duration, lower=0, finite=TRUE)
@@ -46,6 +51,12 @@ Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
   checkmate::assertNumber(preparation, lower=0, finite=TRUE, null.ok=TRUE)
   if (!is.null(file))
     checkmate::assertPathForOutput(file, overwrite=TRUE, extension="csv")
+  checkmate::assertFlag(mandala)
+
+  if (mandala) {
+    PlotMandala(...)
+    Sys.sleep(1)
+  }
 
   if (!is.null(preparation) && preparation > 0) {
     cat("Prepare\n")
@@ -64,7 +75,7 @@ Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
   stime <- Sys.time()
   etime <- stime + duration * 60
 
-  on.exit(.End(stime, etime, ring, file))
+  on.exit(.End(stime, etime, ring, file, mandala))
 
   if (is.null(interval) || interval == 0) {
     intervals <- as.character()
@@ -92,7 +103,7 @@ Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
 
 # function to run at end of session
 
-.End <- function(stime, etime, ring, file) {
+.End <- function(stime, etime, ring, file, mandala) {
 
   sys_time <- Sys.time()
   duration <- as.numeric(sys_time - stime, units="mins")
@@ -106,7 +117,10 @@ Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
     }
   }
 
-  if (is_premature) cat("Premature end\n") else cat("End\n")
+  if (mandala && grDevices::dev.cur() > 1)
+    graphics::plot.new()
+
+  if (is_premature) cat("Premature\n") else cat("End\n")
   utils::flush.console()
 
   if (!is.null(file) && (duration > 1 || !is_premature)) {

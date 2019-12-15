@@ -2,4 +2,5 @@
 
 S3method(print,sessions)
 export(Meditate)
+export(PlotMandala)
 export(ReadSessions)

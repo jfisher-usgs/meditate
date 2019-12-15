@@ -22,7 +22,7 @@
 #'     \item{\code{total_practice}}{number of days that included at least one session.}
 #'     \item{\code{average_day}}{average session time per day in minutes.}
 #'     \item{\code{average_session}}{average session time in minutes.}
-#'     \item{\code{total_time}}{total session time in days.}
+#'     \item{\code{total_time}}{time meditating in days.}
 #'     \item{\code{since}}{date of first session.}
 #'   }
 #'
@@ -111,7 +111,7 @@ print.sessions <- function(x, ...) {
               format(round(attr(x, "average_day"), 1))))
   cat(sprintf("Average per session: %s\n",
               format(round(attr(x, "average_session"), 1))))
-  cat(sprintf("Total time: %s since %s\n",
+  cat(sprintf("Time meditating: %s since %s\n",
               format(round(attr(x, "total_time"), 2), big.mark=",", nsmall=1),
               format(attr(x, "since"), "%b %d %Y")))
 
