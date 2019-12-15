@@ -41,7 +41,7 @@
 
 Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
                      sound=TRUE, preparation=10, file="meditate.csv",
-                     mandala=TRUE, ...) {
+                     mandala=FALSE, ...) {
 
   # check arguments
   checkmate::assertNumber(duration, lower=0, finite=TRUE)

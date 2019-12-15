@@ -11,8 +11,7 @@ The [R](https://www.r-project.org/) package **meditate** is a simple meditation 
 
 ## Install
 
-The current release is available on [CRAN](https://CRAN.R-project.org/package=meditate "The Comprehensive R Archive Network"),
-which you can install using the following command:
+The current release is available on [CRAN](https://CRAN.R-project.org/package=meditate "The Comprehensive R Archive Network"), which you can install using the following command:
 
 ```r
 install.packages("meditate")
@@ -26,10 +25,15 @@ remotes::install_github("jfisher-usgs/meditate")
 
 ## Usage
 
+Begin a 10-minute meditation session:
+
 ```r
-library(meditate)
-?Meditate
-Meditate()
+meditate::Meditate(10)
+```
+Access help documentation for this function:
+
+```r
+help("Meditate", package = "meditate")
 ```
 
 ## Contact

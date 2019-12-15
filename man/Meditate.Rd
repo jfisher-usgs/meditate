@@ -11,7 +11,7 @@ Meditate(
   sound = TRUE,
   preparation = 10,
   file = "meditate.csv",
-  mandala = TRUE,
+  mandala = FALSE,
   ...
 )
 }

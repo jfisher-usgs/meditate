@@ -25,7 +25,7 @@
 #'
 #' @references This function was derived from the
 #'   \href{https://github.com/aschinchon/mandalas-colored}{mandalas-colored}
-#'   script by A.S. Chinchón, accessed on Dec 13, 2019.
+#'   \R script by A.S. Chinchón, accessed on Dec 13, 2019.
 #'
 #' @export
 #'
