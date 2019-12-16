@@ -44,4 +44,4 @@ Please consider reporting bugs and asking questions on the [Issues page](https:/
 
 This package is free and open source software, licensed under GPL (>= 2).
 
-![Mandala](man/figures/mandala.svg)
+<img src="./man/figures/mandala.svg" alt="Mandala" width="288" height="288" />
