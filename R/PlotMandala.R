@@ -33,7 +33,7 @@
 #' PlotMandala()
 #'
 #' \dontrun{
-#' grDevices::png("mandala.png", bg = "transparent")
+#' svglite::svglite("mandala.svg", width = 4, height = 4, bg = "transparent")
 #' PlotMandala(seed = 222)
 #' grDevices::dev.off()
 #' }
