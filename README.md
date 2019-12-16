@@ -30,7 +30,7 @@ Begin a 10-minute meditation session:
 ```r
 meditate::Meditate(10)
 ```
-Access help documentation for this function:
+Access help documentation:
 
 ```r
 help("Meditate", package = "meditate")
