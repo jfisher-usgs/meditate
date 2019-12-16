@@ -33,7 +33,7 @@ meditate::Meditate(10)
 Access help documentation:
 
 ```r
-help("Meditate", package = "meditate")
+?meditate::Meditate
 ```
 
 ## Contact
