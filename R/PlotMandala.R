@@ -14,6 +14,8 @@
 #'   Name of color palette(s) to choose from, see
 #'   \code{\link[wesanderson:wes_palette]{wes_palette}} function for choices.
 #'   By default, specified using a random selection from all possible palettes.
+#' @param mar 'numeric' vector of length 4.
+#'   Number of lines of margin to be specified on the bottom, left, top, and right side of the plot.
 #' @param seed 'integer' count.
 #'   Random number generator state, used to replicate the results.
 #'
@@ -34,7 +36,7 @@
 #'
 #' \dontrun{
 #' svglite::svglite("mandala.svg", width = 7, height = 7, bg = "transparent")
-#' PlotMandala(seed = 38)
+#' PlotMandala(seed = 123)
 #' grDevices::dev.off()
 #' }
 #'
@@ -61,15 +63,16 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-PlotMandala <- function(radius=c(0.6, 1.8), npoints=14L, depth=3L,
-                        scheme=NULL, seed=NULL) {
+PlotMandala <- function(radius=c(1.1, 1.8), npoints=14L, depth=3L,
+                        scheme=NULL, mar=c(0, 0, 0, 0), seed=NULL) {
 
   checkmate::assertNumeric(radius, finite=TRUE, any.missing=FALSE,
-                           min.len=1, max.len=2, sorted=TRUE)
+                           min.len=1, max.len=2, unique=TRUE, sorted=TRUE)
   checkmate::assertInt(npoints, lower=4)
   checkmate::assertInt(depth, lower=2)
   checkmate::assertCharacter(scheme, any.missing=FALSE, min.len=1,
                              unique=TRUE, null.ok=TRUE)
+  checkmate::assertNumeric(mar, lower=0, finite=TRUE, any.missing=FALSE, len=4)
   checkmate::assertInt(seed, null.ok=TRUE)
 
   if (!is.null(seed)) set.seed(seed)
@@ -90,6 +93,7 @@ PlotMandala <- function(radius=c(0.6, 1.8), npoints=14L, depth=3L,
   repeat {
     itr <- itr + 1L
     if (itr > 100L) stop()
+
     d <- data.frame(x=0, y=0)
     for (k in seq_len(depth)) {
       tmp <- data.frame()
@@ -99,6 +103,7 @@ PlotMandala <- function(radius=c(0.6, 1.8), npoints=14L, depth=3L,
       }
       d <- tmp
     }
+
     l <- try({
       suppressMessages(deldir::tile.list(deldir::deldir(d, suppressMsge=TRUE)))
     }, silent=TRUE)
@@ -126,7 +131,7 @@ PlotMandala <- function(radius=c(0.6, 1.8), npoints=14L, depth=3L,
   xlim <- range(unlist(lapply(xy, function(x) x[["x"]])))
   ylim <- range(unlist(lapply(xy, function(x) x[["y"]])))
 
-  op <- graphics::par(mar=c(0, 0, 0, 0))
+  op <- graphics::par(mar=mar)
   on.exit(graphics::par(op))
   graphics::plot.default(NA, type="n", xlim=xlim, ylim=ylim, main="",
                          xaxs="i", yaxs="i", bty="n", xaxt="n", yaxt="n",

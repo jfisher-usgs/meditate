@@ -5,10 +5,11 @@
 \title{Plot Mandala}
 \usage{
 PlotMandala(
-  radius = c(0.6, 1.8),
+  radius = c(1.1, 1.8),
   npoints = 14L,
   depth = 3L,
   scheme = NULL,
+  mar = c(0, 0, 0, 0),
   seed = NULL
 )
 }
@@ -29,6 +30,9 @@ Name of color palette(s) to choose from, see
 \code{\link[wesanderson:wes_palette]{wes_palette}} function for choices.
 By default, specified using a random selection from all possible palettes.}
 
+\item{mar}{'numeric' vector of length 4.
+Number of lines of margin to be specified on the bottom, left, top, and right side of the plot.}
+
 \item{seed}{'integer' count.
 Random number generator state, used to replicate the results.}
 }
@@ -43,7 +47,7 @@ PlotMandala()
 
 \dontrun{
 svglite::svglite("mandala.svg", width = 7, height = 7, bg = "transparent")
-PlotMandala(seed = 38)
+PlotMandala(seed = 123)
 grDevices::dev.off()
 }
 
