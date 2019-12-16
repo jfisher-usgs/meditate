@@ -34,7 +34,7 @@
 #'
 #' \dontrun{
 #' svglite::svglite("mandala.svg", width = 7, height = 7, bg = "transparent")
-#' PlotMandala(seed = 222)
+#' PlotMandala(seed = 38)
 #' grDevices::dev.off()
 #' }
 #'
@@ -118,12 +118,10 @@ PlotMandala <- function(radius=c(0.6, 1.8), npoints=14L, depth=3L,
   xy <- xy[idx]
   area <- area[idx]
 
-  pal <- wesanderson::wes_palette(scheme)
-  pal <- sample(pal, length(pal))
-
   idx <- cumsum(c(TRUE, diff(area) != 0))
-  col <- grDevices::colorRampPalette(pal)(max(idx))
-  col <- col[idx[seq_along(xy)]]
+  pal <- wesanderson::wes_palette(scheme, max(idx), type="continuous")
+  pal <- sample(pal, length(pal))
+  col <- pal[idx[seq_along(xy)]]
 
   xlim <- range(unlist(lapply(xy, function(x) x[["x"]])))
   ylim <- range(unlist(lapply(xy, function(x) x[["y"]])))

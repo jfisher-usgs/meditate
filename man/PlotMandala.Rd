@@ -43,7 +43,7 @@ PlotMandala()
 
 \dontrun{
 svglite::svglite("mandala.svg", width = 7, height = 7, bg = "transparent")
-PlotMandala(seed = 222)
+PlotMandala(seed = 38)
 grDevices::dev.off()
 }
 
