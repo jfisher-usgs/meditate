@@ -39,11 +39,11 @@ Invisible \code{NULL}
 Draw a colored mandala using Voronoi tessellation and a Wes Anderson color palette.
 }
 \examples{
-PlotMandala(seed = 222)
+PlotMandala()
 
 \dontrun{
-grDevices::png("mandala.png")
-PlotMandala()
+grDevices::png("mandala.png", bg = "transparent")
+PlotMandala(seed = 222)
 grDevices::dev.off()
 }
 

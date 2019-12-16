@@ -43,3 +43,5 @@ Please consider reporting bugs and asking questions on the [Issues page](https:/
 ## License
 
 This package is free and open source software, licensed under GPL (>= 2).
+
+![Mandala](man/figures/mandala.png)
