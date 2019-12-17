@@ -12,9 +12,9 @@ A list object with components of class `audio::audioSample`.
 
 ## Source
 
-*bowl-struck.wav* file accessed on December 2, 2019 at https://freesound.org/s/2166/ and released under the Creative Commons [Sampling Plus 1.0](https://creativecommons.org/licenses/sampling+/1.0/) license.
+*bowl-struck.wav* was accessed on Dec 2, 2019 at https://freesound.org/s/2166/ and released under the Creative Commons [Sampling Plus 1.0](https://creativecommons.org/licenses/sampling+/1.0/) license.
 
-*bell-kyoto.wav* file accessed on December 3, 2019 at https://freesound.org/s/131348/ and released under the Creative Commons [CC0 1.0 Universal](https://creativecommons.org/licenses/by-nc/3.0/) license.
+*bell-kyoto.wav* was accessed on Dec 3, 2019 at https://freesound.org/s/131348/ and released under the Creative Commons [CC0 1.0 Universal](https://creativecommons.org/licenses/by-nc/3.0/) license.
 
 ## Examples
 

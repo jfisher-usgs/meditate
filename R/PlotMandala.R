@@ -84,40 +84,44 @@ PlotMandala <- function(radius=c(1.1, 1.8), npoints=14L, depth=3L,
 
   ang <- seq(0, 2 * pi * (1 - 1 / npoints), length.out=npoints) + pi / 2
 
-  if (length(radius) == 2)
+  if (length(radius) == 2) {
     r <- stats::runif(1, min=radius[1], max=radius[2])
-  else
+  } else {
     r <- radius
+  }
 
   itr <- 0L
   repeat {
     itr <- itr + 1L
-    if (itr > 100L) stop()
+    if (itr > 100L) stop("maximum number of iterations exceeded")
 
-    d <- data.frame(x=0, y=0)
+    pnt <- list(x=0, y=0)
     for (k in seq_len(depth)) {
-      tmp <- data.frame()
-      for (i in seq_len(nrow(d))) {
-        tmp <- rbind(data.frame(x=d[i, "x"] + r^(k - 1) * cos(ang),
-                                y=d[i, "y"] + r^(k - 1) * sin(ang)), tmp)
+      x <- as.numeric()
+      y <- as.numeric()
+      for (i in seq_along(pnt$x)) {
+        x <- c(pnt$x[i] + r^(k - 1) * cos(ang), x)
+        y <- c(pnt$y[i] + r^(k - 1) * sin(ang), y)
       }
-      d <- tmp
+      pnt$x <- x
+      pnt$y <- y
     }
 
-    l <- try({
-      suppressMessages(deldir::tile.list(deldir::deldir(d, suppressMsge=TRUE)))
+    cell <- try({
+      suppressMessages(deldir::tile.list(deldir::deldir(pnt, suppressMsge=TRUE)))
     }, silent=TRUE)
-    if (inherits(l, "tile.list")) break
+    if (inherits(cell, "tile.list")) break
+
     r <- r + sample(c(-1, 1), 1) * 0.001
   }
 
-  l <- l[vapply(l, function(x) sum(x$bp) == 0, TRUE)]
-  l <- l[vapply(l, function(x) {
+  cell <- cell[vapply(cell, function(x) sum(x$bp) == 0, TRUE)]
+  cell <- cell[vapply(cell, function(x) {
     length(intersect(which(x$x == 0), which(x$y == 0))) == 0
   }, TRUE)]
 
-  area <- vapply(l, function(x) x$area, 0)
-  xy   <- lapply(l, function(x) x[c("x", "y")])
+  area <- vapply(cell, function(x) x$area, 0)
+  xy   <- lapply(cell, function(x) x[c("x", "y")])
 
   idx <- order(area)
   xy <- xy[idx]
