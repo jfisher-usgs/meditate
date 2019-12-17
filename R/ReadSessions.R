@@ -55,13 +55,13 @@ ReadSessions <- function(file="meditate.csv", tz=Sys.timezone()) {
   d[, 2] <- as.difftime(d[, 2], units="mins")
 
   dates <- as.Date(d$start_time, tz=tz)
-  is_today <- utils::tail(dates, 1) == Sys.Date()
+  is_current <- utils::tail(dates, 1) >= Sys.Date() - 1
 
   x <- rle(as.numeric(diff(unique(dates))))
-  if (length(x) > 0 && is_today && utils::tail(x$values, 1) == 1)
+  if (length(x) > 0 && is_current && utils::tail(x$values, 1) == 1)
     current_streak <- utils::tail(x$lengths, 1) + 1L
   else
-    current_streak <- as.integer(is_today)
+    current_streak <- as.integer(is_current)
 
   x <- x$lengths[x$values == 1]
   if (length(x) > 0)
