@@ -50,7 +50,7 @@ Invisible \code{NULL}
 A simple meditation timer that logs session information.
 }
 \examples{
-Meditate(0.1, sound = FALSE, preparation = NULL, file = NULL)
+meditate::Meditate(0.1, sound = FALSE, preparation = NULL, file = NULL)
 
 }
 \seealso{

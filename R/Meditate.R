@@ -36,7 +36,7 @@
 #' @export
 #'
 #' @examples
-#' Meditate(0.1, sound = FALSE, preparation = NULL, file = NULL)
+#' meditate::Meditate(0.1, sound = FALSE, preparation = NULL, file = NULL)
 #'
 
 Meditate <- function(duration=20, interval=NULL, repeats=TRUE,

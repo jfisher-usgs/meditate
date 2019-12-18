@@ -32,11 +32,19 @@
 #' @export
 #'
 #' @examples
-#' PlotMandala()
+#' meditate::PlotMandala()
 #'
 #' \dontrun{
+#' while(interactive()) {
+#'   seed <- sample.int(10000, 1)
+#'   meditate::PlotMandala(seed = seed)
+#'   cat("seed =", seed, "\n")
+#'   ans <- readline("continue (yes/no)? ")
+#'   if (tolower(substr(ans, 1, 1)) == "n") break
+#' }
+#'
 #' svglite::svglite("mandala.svg", width = 7, height = 7, bg = "transparent")
-#' PlotMandala(seed = 123)
+#' meditate::PlotMandala(seed = 123)
 #' grDevices::dev.off()
 #' }
 #'
@@ -82,16 +90,14 @@ PlotMandala <- function(radius=c(1.1, 1.8), npoints=14L, depth=3L,
     choices <- match.arg(scheme, choices, several.ok=TRUE)
   scheme <- sample(choices, 1)
 
-  if (length(npoints) > 1) npoints <- sample(npoints, 1)
-  if (length(depth) > 1) depth <- sample(depth, 1)
+  if (length(radius) > 1)
+    radius <- stats::runif(1, min=radius[1], max=radius[2])
+  if (length(npoints) > 1)
+    npoints <- sample(npoints, 1)
+  if (length(depth) > 1)
+    depth <- sample(depth, 1)
 
   ang <- seq(0, 2 * pi * (1 - 1 / npoints), length.out=npoints) + pi / 2
-
-  if (length(radius) == 2) {
-    r <- stats::runif(1, min=radius[1], max=radius[2])
-  } else {
-    r <- radius
-  }
 
   itr <- 0L
   repeat {
@@ -103,8 +109,8 @@ PlotMandala <- function(radius=c(1.1, 1.8), npoints=14L, depth=3L,
       x <- as.numeric()
       y <- as.numeric()
       for (i in seq_along(pnt$x)) {
-        x <- c(pnt$x[i] + r^(k - 1) * cos(ang), x)
-        y <- c(pnt$y[i] + r^(k - 1) * sin(ang), y)
+        x <- c(pnt$x[i] + radius^(k - 1) * cos(ang), x)
+        y <- c(pnt$y[i] + radius^(k - 1) * sin(ang), y)
       }
       pnt$x <- x
       pnt$y <- y
@@ -115,7 +121,7 @@ PlotMandala <- function(radius=c(1.1, 1.8), npoints=14L, depth=3L,
     }, silent=TRUE)
     if (inherits(cell, "tile.list")) break
 
-    r <- r + sample(c(-1, 1), 1) * 0.001
+    radius <- radius + sample(c(-1, 1), 1) * 0.001
   }
 
   cell <- cell[vapply(cell, function(x) sum(x$bp) == 0, TRUE)]

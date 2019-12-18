@@ -43,11 +43,19 @@ Invisible \code{NULL}
 Draw a colored mandala using Voronoi tessellation and a Wes Anderson color palette.
 }
 \examples{
-PlotMandala()
+meditate::PlotMandala()
 
 \dontrun{
+while(interactive()) {
+  seed <- sample.int(10000, 1)
+  meditate::PlotMandala(seed = seed)
+  cat("seed =", seed, "\n")
+  ans <- readline("continue (yes/no)? ")
+  if (tolower(substr(ans, 1, 1)) == "n") break
+}
+
 svglite::svglite("mandala.svg", width = 7, height = 7, bg = "transparent")
-PlotMandala(seed = 123)
+meditate::PlotMandala(seed = 123)
 grDevices::dev.off()
 }
 

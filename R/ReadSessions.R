@@ -34,7 +34,7 @@
 #'
 #' @examples
 #' file <- system.file("extdata/meditate-ex.csv", package = "meditate")
-#' x <- ReadSessions(file)
+#' x <- meditate::ReadSessions(file)
 #' x
 #'
 #' print.data.frame(x)
