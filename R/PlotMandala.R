@@ -6,10 +6,10 @@
 #'   Factor of expansion or compression.
 #'   A random-number generator may be used by defining the
 #'   lower and upper limits of a uniform distribution.
-#' @param npoints 'integer' count.
-#'   Number of points
-#' @param depth 'integer' count.
-#'   Number of iterations
+#' @param npoints 'integer' vector.
+#'   Number of points is randomly selected from this argument.
+#' @param depth 'integer' vector.
+#'   Number of iterations is randomly selected from this argument.
 #' @param scheme 'character' vector.
 #'   Name of color palette(s) to choose from, see
 #'   \code{\link[wesanderson:wes_palette]{wes_palette}} function for choices.
@@ -17,7 +17,7 @@
 #' @param mar 'numeric' vector of length 4.
 #'   Number of lines of margin to be specified on the bottom, left, top, and right side of the plot.
 #' @param seed 'integer' count.
-#'   Random number generator state, used to replicate the results.
+#'   Random number generator state, used to replicate the mandala.
 #'
 #' @return Invisible \code{NULL}
 #'
@@ -68,8 +68,8 @@ PlotMandala <- function(radius=c(1.1, 1.8), npoints=14L, depth=3L,
 
   checkmate::assertNumeric(radius, finite=TRUE, any.missing=FALSE,
                            min.len=1, max.len=2, unique=TRUE, sorted=TRUE)
-  checkmate::assertInt(npoints, lower=4)
-  checkmate::assertInt(depth, lower=2)
+  checkmate::assertIntegerish(npoints, lower=4, any.missing=FALSE, min.len=1)
+  checkmate::assertIntegerish(depth, lower=2, any.missing=FALSE, min.len=1)
   checkmate::assertCharacter(scheme, any.missing=FALSE, min.len=1,
                              unique=TRUE, null.ok=TRUE)
   checkmate::assertNumeric(mar, lower=0, finite=TRUE, any.missing=FALSE, len=4)
@@ -81,6 +81,9 @@ PlotMandala <- function(radius=c(1.1, 1.8), npoints=14L, depth=3L,
   if (!is.null(scheme))
     choices <- match.arg(scheme, choices, several.ok=TRUE)
   scheme <- sample(choices, 1)
+
+  if (length(npoints) > 1) npoints <- sample(npoints, 1)
+  if (length(depth) > 1) depth <- sample(depth, 1)
 
   ang <- seq(0, 2 * pi * (1 - 1 / npoints), length.out=npoints) + pi / 2
 

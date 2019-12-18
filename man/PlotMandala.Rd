@@ -19,11 +19,11 @@ Factor of expansion or compression.
 A random-number generator may be used by defining the
 lower and upper limits of a uniform distribution.}
 
-\item{npoints}{'integer' count.
-Number of points}
+\item{npoints}{'integer' vector.
+Number of points is randomly selected from this argument.}
 
-\item{depth}{'integer' count.
-Number of iterations}
+\item{depth}{'integer' vector.
+Number of iterations is randomly selected from this argument.}
 
 \item{scheme}{'character' vector.
 Name of color palette(s) to choose from, see
@@ -34,7 +34,7 @@ By default, specified using a random selection from all possible palettes.}
 Number of lines of margin to be specified on the bottom, left, top, and right side of the plot.}
 
 \item{seed}{'integer' count.
-Random number generator state, used to replicate the results.}
+Random number generator state, used to replicate the mandala.}
 }
 \value{
 Invisible \code{NULL}

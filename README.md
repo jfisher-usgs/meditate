@@ -14,7 +14,7 @@ The [R](https://www.r-project.org/) package **meditate** is a simple meditation 
 The current release is available on [CRAN](https://CRAN.R-project.org/package=meditate "The Comprehensive R Archive Network"), which you can install using the following command:
 
 ```r
-install.packages("meditate")
+utils::install.packages("meditate")
 ```
 
 To install the development version, you need to clone the repository and build from source, or run:
