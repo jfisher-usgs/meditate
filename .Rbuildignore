@@ -5,3 +5,5 @@
 ^Makefile$
 ^\.travis\.yml$
 ^data-raw$
+^README\.Rmd$
+^README\.html$
