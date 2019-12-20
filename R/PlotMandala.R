@@ -35,16 +35,19 @@
 #' meditate::PlotMandala()
 #'
 #' \dontrun{
-#' while(interactive()) {
-#'   seed <- sample.int(10000, 1)
-#'   meditate::PlotMandala(seed = seed)
+#' for (seed in sample.int(1e7, 100)) {
 #'   cat("seed =", seed, "\n")
-#'   ans <- readline("continue (yes/no)? ")
+#'   meditate::PlotMandala(seed = seed)
+#'   ans <- if (interactive()) readline("continue (yes/no)? ") else "no"
 #'   if (tolower(substr(ans, 1, 1)) == "n") break
 #' }
 #'
 #' svglite::svglite("mandala.svg", width = 7, height = 7, bg = "transparent")
 #' meditate::PlotMandala(seed = 123)
+#' grDevices::dev.off()
+#' 
+#' grDevices::png("mandala.png", width = 7, height = 7, units = "in", res = 300)
+#' meditate::PlotMandala(seed = 321)
 #' grDevices::dev.off()
 #' }
 #'
