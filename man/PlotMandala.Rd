@@ -46,7 +46,7 @@ Draw a colored mandala using Voronoi tessellation and a Wes Anderson color palet
 meditate::PlotMandala()
 
 \dontrun{
-for (seed in sample.int(1e7, 100)) {
+for (seed in sample.int(1e8, 100)) {
   cat("seed =", seed, "\n")
   meditate::PlotMandala(seed = seed)
   ans <- if (interactive()) readline("continue (yes/no)? ") else "no"
@@ -54,11 +54,11 @@ for (seed in sample.int(1e7, 100)) {
 }
 
 svglite::svglite("mandala.svg", width = 7, height = 7, bg = "transparent")
-meditate::PlotMandala(seed = 123)
+meditate::PlotMandala(seed = 6444)
 grDevices::dev.off()
 
-grDevices::png("mandala.png", width = 7, height = 7, units = "in", res = 300)
-meditate::PlotMandala(seed = 321)
+grDevices::png("mandala.png", res = 300)
+meditate::PlotMandala(seed = 8471)
 grDevices::dev.off()
 }
 
