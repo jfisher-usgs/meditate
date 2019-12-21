@@ -85,7 +85,7 @@ Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
     if (!repeats && length(intervals) > 0) intervals <- intervals[1]
   }
 
-  while(TRUE) {
+  while (TRUE) {
     Sys.sleep(1)
     sys_time <- Sys.time()
     if (sys_time >= etime) return(invisible())
