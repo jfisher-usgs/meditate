@@ -42,6 +42,10 @@ Invisible \code{NULL}
 \description{
 Draw a colored mandala using Voronoi tessellation and a Wes Anderson color palette.
 }
+\details{
+\if{html}{\figure{mandala.svg}{options: width=480px}}
+  \if{latex}{\figure{mandala.pdf}{options: width=4in}}
+}
 \examples{
 meditate::PlotMandala()
 
@@ -54,10 +58,10 @@ for (seed in sample.int(1e8, 100)) {
 }
 
 svglite::svglite("mandala.svg", width = 7, height = 7, bg = "transparent")
-meditate::PlotMandala(seed = 6444)
+meditate::PlotMandala(seed = 8471)
 grDevices::dev.off()
 
-grDevices::png("mandala.png", res = 300)
+grDevices::pdf("mandala.pdf")
 meditate::PlotMandala(seed = 8471)
 grDevices::dev.off()
 }
