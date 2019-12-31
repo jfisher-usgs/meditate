@@ -42,7 +42,7 @@
 #' for (seed in sample.int(1e8, 100)) {
 #'   cat("seed =", seed, "\n")
 #'   meditate::PlotMandala(seed = seed)
-#'   ans <- if (interactive()) readline("continue (yes/no)? ") else "no"
+#'   ans <- if (interactive()) readline("continue? [Y/n]: ") else "n"
 #'   if (tolower(substr(ans, 1, 1)) == "n") break
 #' }
 #'

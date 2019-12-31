@@ -126,7 +126,7 @@ Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
   if (!is.null(file)) {
 
     if (is_premature) {
-      ans <- if (interactive()) readline("Save (yes/no)? ") else "no"
+      ans <- if (interactive()) readline("Save? [y/N]: ") else "n"
       if (tolower(substr(ans, 1, 1)) != "y") return(invisible())
     }
 
