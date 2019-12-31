@@ -123,7 +123,13 @@ Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
   if (is_premature) cat("Premature\n") else cat("End\n")
   utils::flush.console()
 
-  if (!is.null(file) && (duration > 1 || !is_premature)) {
+  if (!is.null(file)) {
+
+    if (is_premature) {
+      ans <- if (interactive()) readline("Save (yes/no)? ") else "no"
+      if (tolower(substr(ans, 1, 1)) != "y") return(invisible())
+    }
+
     if (!checkmate::testFileExists(file))
       cat("start_time,duration", file=file, fill=TRUE)
     cat(format(stime, tz="UTC"), format(round(duration, 1), nsmall=1),

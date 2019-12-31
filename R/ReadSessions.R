@@ -58,16 +58,13 @@ ReadSessions <- function(file="meditate.csv", tz=Sys.timezone()) {
   is_current <- utils::tail(dates, 1) >= Sys.Date() - 1
 
   x <- rle(as.numeric(diff(unique(dates))))
-  if (length(x) > 0 && is_current && utils::tail(x$values, 1) == 1)
+  if (length(x$values) > 0 && is_current && utils::tail(x$values, 1) == 1)
     current_streak <- utils::tail(x$lengths, 1) + 1L
   else
     current_streak <- as.integer(is_current)
 
   x <- x$lengths[x$values == 1]
-  if (length(x) > 0)
-    longest_streak <- max(x) + 1L
-  else
-    longest_streak <- 1L
+  longest_streak <- if (length(x) > 0) max(x) + 1L else 1L
 
   total_practice <- length(unique(dates))
 
