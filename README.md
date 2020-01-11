@@ -9,7 +9,7 @@
 
 The [R](https://www.r-project.org/) package **meditate** is a simple meditation timer that logs session information.
 
-## Install
+## Installation
 
 The current release is available on [CRAN](https://CRAN.R-project.org/package=meditate "The Comprehensive R Archive Network"), which you can install using the following command:
 
