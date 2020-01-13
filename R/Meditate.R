@@ -19,7 +19,7 @@
 #'   A data record consists of a session's start time in
 #'   Coordinated Universal Time (UTC) and duration in minutes.
 #' @param mandala 'logical' flag.
-#'   Whether to plot a mandala for the duration of the session.
+#'   Whether to plot a mandala.
 #' @param user_ends 'logical' flag.
 #'   Whether to manually end the session.
 #' @param ...
@@ -125,8 +125,6 @@ Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
   sys_time <- Sys.time()
   duration <- as.numeric(sys_time - stime, units="mins")
   is_premature <- sys_time < etime
-
-  if (mandala && grDevices::dev.cur() > 1) graphics::plot.new()
 
   if (is_premature) cat("Premature\n") else cat("End\n")
   utils::flush.console()

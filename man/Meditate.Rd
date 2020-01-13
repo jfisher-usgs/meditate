@@ -40,7 +40,7 @@ A data record consists of a session's start time in
 Coordinated Universal Time (UTC) and duration in minutes.}
 
 \item{mandala}{'logical' flag.
-Whether to plot a mandala for the duration of the session.}
+Whether to plot a mandala.}
 
 \item{user_ends}{'logical' flag.
 Whether to manually end the session.}
