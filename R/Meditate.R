@@ -20,6 +20,8 @@
 #'   Coordinated Universal Time (UTC) and duration in minutes.
 #' @param mandala 'logical' flag.
 #'   Whether to plot a mandala for the duration of the session.
+#' @param user_ends 'logical' flag.
+#'   Whether to manually end the session.
 #' @param ...
 #'   Arguments passed to the \code{\link{PlotMandala}} function.
 #'
@@ -41,7 +43,10 @@
 
 Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
                      sound=TRUE, preparation=10, file="meditate.csv",
-                     mandala=FALSE, ...) {
+                     mandala=FALSE, user_ends=FALSE, ...) {
+
+  # if copy-pasting, run the following command:
+  # lazyLoad(file.path(system.file("R", package="meditate"), "sysdata"))
 
   # check arguments
   checkmate::assertNumber(duration, lower=0, finite=TRUE)
@@ -52,6 +57,7 @@ Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
   if (!is.null(file))
     checkmate::assertPathForOutput(file, overwrite=TRUE, extension="csv")
   checkmate::assertFlag(mandala)
+  checkmate::assertFlag(user_ends)
 
   if (mandala) {
     PlotMandala(...)
@@ -75,7 +81,7 @@ Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
   stime <- Sys.time()
   etime <- stime + duration * 60
 
-  on.exit(.End(stime, etime, ring, file, mandala))
+  on.exit(.End(stime, etime, file, mandala))
 
   if (is.null(interval) || interval == 0) {
     intervals <- as.character()
@@ -88,7 +94,18 @@ Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
   while (TRUE) {
     Sys.sleep(1)
     sys_time <- Sys.time()
-    if (sys_time >= etime) return(invisible())
+
+    if (sys_time >= etime) {
+
+      if (!is.null(ring)) {
+        audio::pause(ring)
+        audio::rewind(ring)
+        audio::resume(ring)
+      }
+
+      if (user_ends) invisible(readline("Press [enter] to end session "))
+      return(invisible())
+    }
 
     if (length(intervals) > 0 && sys_time >= intervals[1]) {
       cat("Interval\n")
@@ -103,22 +120,13 @@ Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
 
 # function to run at end of session
 
-.End <- function(stime, etime, ring, file, mandala) {
+.End <- function(stime, etime, file, mandala) {
 
   sys_time <- Sys.time()
   duration <- as.numeric(sys_time - stime, units="mins")
   is_premature <- sys_time < etime
 
-  if (!is.null(ring)) {
-    audio::pause(ring)
-    if (!is_premature) {
-      audio::rewind(ring)
-      audio::resume(ring)
-    }
-  }
-
-  if (mandala && grDevices::dev.cur() > 1)
-    graphics::plot.new()
+  if (mandala && grDevices::dev.cur() > 1) graphics::plot.new()
 
   if (is_premature) cat("Premature\n") else cat("End\n")
   utils::flush.console()
