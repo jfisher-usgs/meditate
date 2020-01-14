@@ -81,7 +81,7 @@ Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
   stime <- Sys.time()
   etime <- stime + duration * 60
 
-  on.exit(.End(stime, etime, file, mandala))
+  on.exit(.End(stime, etime, file))
 
   if (is.null(interval) || interval == 0) {
     intervals <- as.character()
@@ -120,7 +120,7 @@ Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
 
 # function to run at end of session
 
-.End <- function(stime, etime, file, mandala) {
+.End <- function(stime, etime, file) {
 
   sys_time <- Sys.time()
   duration <- as.numeric(sys_time - stime, units="mins")
