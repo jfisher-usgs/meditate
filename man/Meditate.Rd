@@ -12,8 +12,8 @@ Meditate(
   preparation = 10,
   file = "meditate.csv",
   mandala = FALSE,
-  user_ends = FALSE,
-  ...
+  ...,
+  user_stops = FALSE
 )
 }
 \arguments{
@@ -42,10 +42,11 @@ Coordinated Universal Time (UTC) and duration in minutes.}
 \item{mandala}{'logical' flag.
 Whether to plot a mandala.}
 
-\item{user_ends}{'logical' flag.
-Whether to manually end the session.}
-
 \item{...}{Arguments passed to the \code{\link{PlotMandala}} function.}
+
+\item{user_stops}{'logical' flag.
+Whether to manually stop the session timer.
+Allows for extended meditation.}
 }
 \value{
 Invisible \code{NULL}
@@ -55,6 +56,11 @@ A simple meditation timer that logs session information.
 }
 \examples{
 meditate::Meditate(0.1, sound = FALSE, preparation = NULL, file = NULL)
+
+\dontrun{
+# Begin a 10-minute meditation session with mandala:
+meditate::Meditate(10, mandala = TRUE)
+}
 
 }
 \seealso{

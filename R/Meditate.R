@@ -20,10 +20,11 @@
 #'   Coordinated Universal Time (UTC) and duration in minutes.
 #' @param mandala 'logical' flag.
 #'   Whether to plot a mandala.
-#' @param user_ends 'logical' flag.
-#'   Whether to manually end the session.
 #' @param ...
 #'   Arguments passed to the \code{\link{PlotMandala}} function.
+#' @param user_stops 'logical' flag.
+#'   Whether to manually stop the session timer.
+#'   Allows for extended meditation.
 #'
 #' @return Invisible \code{NULL}
 #'
@@ -40,10 +41,15 @@
 #' @examples
 #' meditate::Meditate(0.1, sound = FALSE, preparation = NULL, file = NULL)
 #'
+#' \dontrun{
+#' # Begin a 10-minute meditation session with mandala:
+#' meditate::Meditate(10, mandala = TRUE)
+#' }
+#'
 
 Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
                      sound=TRUE, preparation=10, file="meditate.csv",
-                     mandala=FALSE, user_ends=FALSE, ...) {
+                     mandala=FALSE, ..., user_stops=FALSE) {
 
   # if copy-pasting, run the following command:
   # lazyLoad(file.path(system.file("R", package="meditate"), "sysdata"))
@@ -57,7 +63,7 @@ Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
   if (!is.null(file))
     checkmate::assertPathForOutput(file, overwrite=TRUE, extension="csv")
   checkmate::assertFlag(mandala)
-  checkmate::assertFlag(user_ends)
+  checkmate::assertFlag(user_stops)
 
   if (mandala) {
     PlotMandala(...)
@@ -97,13 +103,17 @@ Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
 
     if (sys_time >= etime) {
 
+      cat("End\n")
+      utils::flush.console()
+
       if (!is.null(ring)) {
         audio::pause(ring)
         audio::rewind(ring)
         audio::resume(ring)
       }
 
-      if (user_ends) invisible(readline("Press [enter] to end session "))
+      if (user_stops) invisible(readline("Press [enter] to stop timer "))
+
       return(invisible())
     }
 
@@ -124,14 +134,16 @@ Meditate <- function(duration=20, interval=NULL, repeats=TRUE,
 
   sys_time <- Sys.time()
   duration <- as.numeric(sys_time - stime, units="mins")
-  is_premature <- sys_time < etime
+  premature <- sys_time < etime
 
-  if (is_premature) cat("Premature\n") else cat("End\n")
-  utils::flush.console()
+  if (premature) {
+    cat("Premature\n")
+    utils::flush.console()
+  }
 
   if (!is.null(file)) {
 
-    if (is_premature) {
+    if (premature) {
       ans <- if (interactive()) readline("Save? [y/N]: ") else "n"
       if (tolower(substr(ans, 1, 1)) != "y") return(invisible())
     }
