@@ -1,7 +1,7 @@
 Package: meditate
 Type: Package
 Title: Meditation Timer
-Version: 0.1.2.9000
+Version: 0.1.3
 Authors@R: person(given=c("Jason", "C."), family="Fisher", role=c("aut", "cre"), email="jfisher@usgs.gov", comment=c(ORCID="0000-0001-9032-8912"))
 Description: A simple meditation timer that logs session information.
 Depends:
