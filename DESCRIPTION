@@ -22,4 +22,4 @@ LazyData: true
 LazyDataCompression: xz
 URL: https://github.com/jfisher-usgs/meditate
 BugReports: https://github.com/jfisher-usgs/meditate/issues
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
